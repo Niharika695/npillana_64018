@@ -1,0 +1,32 @@
+---
+title: "QMM Assignment 1"
+output:
+  html_document: default
+  word_document: default
+---
+
+
+# Importing Dataset
+
+```{r}
+library(readxl)
+Tokyo_Olympic_Medals <- read_excel("C:/Users/nihar/Downloads/Tokyo Olympic Medals.xlsx")
+View(Tokyo_Olympic_Medals)
+```
+
+# Summarizing the data
+
+```{r}
+
+summary(Tokyo_Olympic_Medals)
+```
+
+# Representing the data graphically
+
+```{r}
+library(ggplot2)
+plot(Tokyo_Olympic_Medals$Total, Tokyo_Olympic_Medals$Gold)
+plot(Tokyo_Olympic_Medals$Total, Tokyo_Olympic_Medals$Silver)
+plot(Tokyo_Olympic_Medals$Total, Tokyo_Olympic_Medals$Bronze)
+```
+
