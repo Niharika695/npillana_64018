@@ -52,8 +52,8 @@ lp.control(lp, sense='max')
 
 ```
 
-set.bounds(lp, lower = c(0, 0, 0, 0, 0, 0, 0, 0, 0), columns = c(1,2,3,4,5,6,7,8,9))
-To identify the variables and constraints, we can set variable names and name the constraints
+To identify the variables and constraints, Set the variable names and the constraints
+set.bounds(lp, lower = c(0, 0, 0, 0, 0, 0, 0, 0, 0), columns = c(1,2,3,4,5,6,7,8,9)) 
 
 
 ```{r}
