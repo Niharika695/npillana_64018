@@ -1,0 +1,72 @@
+---
+title: "QMM_Assignment2"
+output:
+  word_document: default
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(lpSolveAPI)
+setwd("C:/Users/nihar/OneDrive/Desktop/Fall Assignments/QMM/Assignment 2")
+
+```
+
+a linear program with 9 decision variables and 0 constraints
+
+```{r}
+lp <- make.lp(0,9, verbose = "neutral")
+lp
+```
+
+Add the constraints
+
+```{r}
+
+add.constraint(lp, c(1,1,1,0,0,0,0,0,0), "<=", 750 )
+add.constraint(lp, c(0,0,0,1,1,1,0,0,0), "<=", 900)
+add.constraint(lp, c(0,0,0,0,0,0,1,1,1), "<=", 450)
+add.constraint(lp, c(20,15,12,0,0,0,0,0,0), "<=", 13000)
+add.constraint(lp, c(0,0,0,20,15,12,0,0,0), "<=", 12000)
+add.constraint(lp, c(0,0,0,0,0,0,20,15,12), "<=", 5000)
+add.constraint(lp, c(1,1,1,0,0,0,0,0,0), "<=", 900)
+add.constraint(lp, c(0,0,0,1,1,1,0,0,0), "<=", 1200)
+add.constraint(lp, c(0,0,0,0,0,0,1,1,1), "<=", 750)
+add.constraint(lp, c(6, 6, 6, -5, -5, -5, 0, 0, 0), "=", 0)
+add.constraint(lp, c( 3, 3, 3, 0, 0, 0, -5, -5, -5), "=", 0)
+
+
+```
+
+Create objective function.
+We need maximum profit so change sense to max
+
+```{r}
+
+set.objfn(lp, c(420,360,300,420,360,300,420,360,300))
+lp.control(lp, sense='max')
+
+```
+
+set.bounds(lp, lower = c(0, 0, 0, 0, 0, 0, 0, 0, 0), columns = c(1,2,3,4,5,6,7,8,9))
+To identify the variables and constraints, we can set variable names and name the constraints
+
+
+```{r}
+
+RowNames <- c("Con1", "Con2", "Con3", "storage1", "Storage2", "Storage33", "Sale1", "Sale2", "Sale3", "%C1", "%C2")
+ColNames <- c("Large1", "Medium1", "Small1", "Large2", "Medium2", "Small2", "Large3", "Medium3", "Small3")
+dimnames(lp) <- list(RowNames, ColNames)
+lp
+write.lp(lp, filename = "QMMAssignment2.lp", type = "lp")
+solve(lp)
+get.objective(lp)
+get.variables(lp)
+
+
+```
+
