@@ -1,0 +1,43 @@
+---
+title: "npillana_Assignment4"
+author: "Niharika Pillanagoyala"
+date: "25/10/2021"
+output:
+  html_document:
+    df_print: paged
+---
+
+# Loading the Library 
+
+```{r}
+library(lpSolveAPI)
+lprec<-make.lp(0,8)
+lp.control(lprec,sense='min')
+```
+
+#Setting up the objective function, 6 decision variables and 2 dummy variables
+
+```{r}
+set.objfn(lprec,c(622,614,630,0,641,645,649,0))
+```
+
+#Adding constraints
+
+```{r}
+add.constraint(lprec,rep(1,4),"=",100,indices =c(1,2,3,4))
+add.constraint(lprec,rep(1,4),"=",120,indices =c(5,6,7,8))
+add.constraint(lprec,rep(1,2),"=",80,indices =c(1,5))
+add.constraint(lprec,rep(1,2),"=",60,indices =c(2,6))
+add.constraint(lprec,rep(1,2),"=",70,indices =c(3,7))
+add.constraint(lprec,rep(1,2),"=",10,indices=c(4,8))
+```
+
+#solve the problem
+
+```{r}
+solve(lprec)
+get.objective(lprec)
+get.constraints(lprec)
+get.variables(lprec)
+```
+
